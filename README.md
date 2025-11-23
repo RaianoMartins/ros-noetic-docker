@@ -1,18 +1,24 @@
 # ROS-Noetic docker image
 
+
 ## This repository was created to host an easy and ready-to-use ROS Noetic Docker image. Feel free to modify it and make improvements.
+
 
 ### INSTRUCTIONS
 
-1) - Running it for the very first time.
+
+1) Running it for the very first time.
+
 
 In image folder, use the following command to build.
+
 
 ```
 docker build -t ros-noetic-image .
 ```
 
 When it's finished, run the container.
+
 
 ```
 docker run -it --name ros-noetic-container \
@@ -29,13 +35,18 @@ docker run -it --name ros-noetic-container \
   ros-noetic-image
 ```
 
-2) - Re initializing the container
+
+2) Re initializing the container
+
 
 Exiting while keep container running.
 
+
 Type Ctrl + P and Ctrl + Q
 
+
 To back for the running container.
+
 
 ```
 docker attach ros-noetic-container
@@ -43,7 +54,9 @@ docker attach ros-noetic-container
 
 Closing and start the container again
 
+
 Inside it, type.
+
 
 ```
 exit
@@ -51,11 +64,13 @@ exit
 
 Or outside, type.
 
+
 ```
 docker stop ros-noetic-container
 ```
 
 To start the container again.
+
 
 ```
 docker start ros-noetic-container
@@ -63,19 +78,23 @@ docker start ros-noetic-container
 
 To run it again.
 
+
 ```
 docker exec -it ros-noetic-container bash
 ```
 
-3) - Update image for persist important changes (e.g. manually installed packages).
+3) Update image for persist important changes (e.g. manually installed packages).
+
 
 ```
 docker commit ros-noetic-container ros-noetic-container-custom
 ```
 
-4) - Useful commands.
+4) Useful commands.
+
 
 #### CONTAINER MANAGEMENT
+
 
 docker run -it image_name                              # Run interactive container
 docker run -d --name mycontainer image_name            # Run detached container
@@ -103,7 +122,9 @@ docker stats                                           # Show all containers sta
 docker diff container_name                             # Show filesystem changes
 docker port container_name                             # Show port mappings
 
+
 #### IMAGE MANAGEMENT    
+
 
 docker images                                          # List all images
 docker pull image_name:tag                             # Download image
@@ -116,7 +137,9 @@ docker save -o image.tar image_name                    # Save image to tar file
 docker load -i image.tar                               # Load image from tar file
 docker tag image_name new_name                         # Tag an image
 
+
 #### VOLUME MANAGEMENT   
+
 
 docker volume ls                                       # List all volumes
 docker volume create volume_name                       # Create volume
@@ -124,7 +147,9 @@ docker volume inspect volume_name                      # Inspect volume
 docker volume rm volume_name                           # Remove volume
 docker volume prune                                    # Remove unused volumes
 
+
 #### NETWORK MANAGEMENT  
+
 
 docker network ls                                      # List all networks
 docker network create network_name                     # Create network
@@ -133,7 +158,9 @@ docker network disconnect network_name container_name  # Disconnect container
 docker network inspect network_name                    # Inspect network
 docker network rm network_name                         # Remove network
 
+
 #### DEVELOPMENT & DEBUGGING
+
 
 docker exec -it container_name bash                    # Execute command in running container
 docker exec -it --user user container_name bash        # Execute as specific user
