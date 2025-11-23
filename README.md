@@ -1,9 +1,9 @@
 # ROS Noetic Docker Image
 
 <p>
-  <img src="badges/ROS-Noetic-green.png" height="28">
-  <img src="badges/Ubuntu-20.04.png" height="28">
-  <img src="badges/Docker-Ready.png" height="28">
+  <img src="badges/ROS-Noetic-green.svg" height="28">
+  <img src="badges/Ubuntu-20.04.svg" height="28">
+  <img src="badges/Docker-Ready.svg" height="28">
 </p>
 
 ---
