@@ -10,11 +10,11 @@
 
 # Table of Contents
 - [Overview](#overview)
-- [1. Build the Image](#1build-the-image)
-- [2. First Run](#2first-run)
-- [3. Reattaching / Restarting](#3reattaching--restarting)
-- [4. Saving Container Modifications](#4saving-container-modifications)
-- [5. Useful Docker Commands](#5useful-docker-commands)
+- [1. Build the Image](#build the image)
+- [2. First Run](#first run)
+- [3. Reattaching / Restarting](#reattaching--restarting)
+- [4. Saving Container Modifications](#saving-container-modifications)
+- [5. Useful Docker Commands](#useful-docker-commands)
   - [Container Management](#container-management)
   - [Image Management](#image-management)
   - [Volume Management](#volume-management)
