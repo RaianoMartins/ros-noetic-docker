@@ -1,9 +1,9 @@
 # ROS Noetic Docker Image
 
-![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)
-![ROS](https://img.shields.io/badge/ROS-Noetic-blue?logo=ros)
-![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04-orange?logo=ubuntu)
-![License](https://img.shields.io/badge/License-MIT-green)
+<img src="https://img.shields.io/badge/Docker-Ready-blue?logo=docker" height="25" />
+<img src="https://img.shields.io/badge/ROS-Noetic-blue?logo=ros" height="25" />
+<img src="https://img.shields.io/badge/Ubuntu-20.04-orange?logo=ubuntu" height="25" />
+<img src="https://img.shields.io/badge/License-MIT-green" height="25" />
 
 ---
 
