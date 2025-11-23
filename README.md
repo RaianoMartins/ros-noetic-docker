@@ -13,7 +13,7 @@
 - [1. Build the Image](#1-build-the-image)
 - [2. First Run](#2-first-run)
 - [3. Reattaching / Restarting](#3-reattaching--restarting)
-- [4. Saving Container Modifications](#4-saving-containe--modifications)
+- [4. Saving Container Modifications](#4-saving-container-modifications)
 - [5. Useful Docker Commands](#5-useful-docker-commands)
   - [Container Management](#container-management)
   - [Image Management](#image-management)
