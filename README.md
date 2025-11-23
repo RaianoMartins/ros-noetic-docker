@@ -1,170 +1,203 @@
-# ROS-Noetic docker image
+# ROS Noetic Docker Image
 
+![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)
+![ROS](https://img.shields.io/badge/ROS-Noetic-blue?logo=ros)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04-orange?logo=ubuntu)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## This repository was created to host an easy and ready-to-use ROS Noetic Docker image. Feel free to modify it and make improvements.
+---
 
+# Table of Contents
+- [Overview](#-overview)
+- [1. Build the Image](#1-build-the-image)
+- [2. First Run](#2-first-run)
+- [3. Reattaching / Restarting](#3-reattaching--restarting)
+- [4. Saving Container Modifications](#4-saving-container-modifications)
+- [5. Useful Docker Commands](#5-useful-docker-commands)
+  - [Container Management](#container-management)
+  - [Image Management](#image-management)
+  - [Volume Management](#volume-management)
+  - [Network Management](#network-management)
+  - [Development & Debugging](#development--debugging)
+- [Contributions](#-contributions)
 
-### INSTRUCTIONS
+---
 
+# Overview
 
-1) Running it for the very first time.
+This repository provides a **ready-to-use Docker image for ROS Noetic**, including:
 
+- GUI (X11) support  
+- Persistent development workspace  
+- Non-root user with passwordless sudo  
+- Device access (for serial, sensors, etc.)  
+- Pre-installed ROS development tools  
 
-In image folder, use the following command to build.
+---
 
+# 1. Build the Image
 
-```
+Inside the `image/` folder, run:
+
+```bash
 docker build -t ros-noetic-image .
 ```
 
-When it's finished, run the container.
+---
 
+# 2. First Run
 
-```
-docker run -it --name ros-noetic-container \
-  --user ros-noetic \
-  --network=host \
-  --ipc=host \
-  -v ~/docker_volumes/ros-noetic/catkin_ws:/home/ros-noetic/catkin_ws \
-  -v ~/docker_volumes/ros-noetic/config:/home/ros-noetic/.config/ros \
-  -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-  -v ~/.ssh:/home/ros-noetic/.ssh:ro \
-  --env=DISPLAY \
-  -v /dev:/dev \
-  --device-cgroup-rule='c *:* rmw' \
-  ros-noetic-image
+```bash
+docker run -it --name ros-noetic-container --network=host   --ipc=host   -v ~/docker_volumes/ros-noetic/catkin_ws:/home/ros-noetic/catkin_ws   -v ~/docker_volumes/ros-noetic/config:/home/ros-noetic/.config/ros   -v /tmp/.X11-unix:/tmp/.X11-unix:rw   -v ~/.ssh:/home/ros-noetic/.ssh:ro   --env=DISPLAY   -v /dev:/dev   --device-cgroup-rule='c *:* rmw'   ros-noetic-image
 ```
 
+Includes:
 
-2) Re initializing the container
+- Persistent catkin workspace  
+- X11 GUI support  
+- Read-only SSH mounting  
+- `/dev` access  
+- Host networking (useful for ROS1)  
 
+---
 
-Exiting while keep container running.
+# 3. Reattaching / Restarting
 
-
-Type Ctrl + P and Ctrl + Q
-
-
-To back for the running container.
-
-
+### ➤ Detach without stopping  
 ```
+Ctrl + P, Ctrl + Q
+```
+
+### ➤ Reattach  
+```bash
 docker attach ros-noetic-container
 ```
 
-Closing and start the container again
-
-
-Inside it, type.
-
-
-```
-exit
-```
-
-Or outside, type.
-
-
-```
+### ➤ Stop
+```bash
 docker stop ros-noetic-container
 ```
 
-To start the container again.
-
-
-```
+### ➤ Start again
+```bash
 docker start ros-noetic-container
 ```
 
-To run it again.
-
-
-```
+### ➤ Open a new shell
+```bash
 docker exec -it ros-noetic-container bash
 ```
 
-3) Update image for persist important changes (e.g. manually installed packages).
+---
 
+# 4. Saving Container Modifications
 
-```
+To persist manual installs or changes:
+
+```bash
 docker commit ros-noetic-container ros-noetic-container-custom
 ```
 
-4) Useful commands.
+---
 
+# 5. Useful Docker Commands
 
-#### CONTAINER MANAGEMENT
+---
 
+## Container Management
 
-docker run -it image_name                              # Run interactive container
-docker run -d --name mycontainer image_name            # Run detached container
-docker run -p 8080:80 image_name                       # Run with port mapping
-docker run -v /host/path:/container/path image_name    # Run with volume
-docker run -e VAR=value image_name                     # Run with environment variable
-docker run --rm image_name                             # Auto-remove after exit
-docker run --privileged image_name                     # Run with privileges
-docker start container_name                            # Start stopped container
-docker stop container_name                             # Stop running container
-docker restart container_name                          # Restart container
-docker pause container_name                            # Pause container
-docker unpause container_name                          # Unpause container
-docker rm container_name                               # Remove container
-docker rm -f container_name                            # Force remove container
+```bash
+docker run -it image_name
+docker run -d --name mycontainer image_name
+docker run -p 8080:80 image_name
+docker run -v /host/path:/container/path image_name
+docker run -e VAR=value image_name
+docker run --rm image_name
+docker run --privileged image_name
 
-docker ps                                              # List running containers
-docker ps -a                                           # List all containers
-docker logs container_name                             # Show container logs
-docker logs -f container_name                          # Follow logs in real-time
-docker inspect container_name                          # Inspect container details
-docker top container_name                              # Show container processes
-docker stats container_name                            # Show container resource usage
-docker stats                                           # Show all containers stats
-docker diff container_name                             # Show filesystem changes
-docker port container_name                             # Show port mappings
+docker start container_name
+docker stop container_name
+docker restart container_name
+docker pause container_name
+docker unpause container_name
+docker rm container_name
+docker rm -f container_name
 
+docker ps
+docker ps -a
+docker logs container_name
+docker logs -f container_name
+docker inspect container_name
+docker top container_name
+docker stats container_name
+docker stats
+docker diff container_name
+docker port container_name
+```
 
-#### IMAGE MANAGEMENT    
+---
 
+## Image Management
 
-docker images                                          # List all images
-docker pull image_name:tag                             # Download image
-docker build -t image_name .                           # Build image from Dockerfile
-docker rmi image_name                                  # Remove image
-docker image prune                                     # Remove unused images
-docker image inspect image_name                        # Inspect image details
-docker history image_name                              # Show image layers
-docker save -o image.tar image_name                    # Save image to tar file
-docker load -i image.tar                               # Load image from tar file
-docker tag image_name new_name                         # Tag an image
+```bash
+docker images
+docker pull image_name:tag
+docker build -t image_name .
+docker rmi image_name
 
+docker image prune
+docker image inspect image_name
+docker history image_name
+docker save -o image.tar image_name
+docker load -i image.tar
+docker tag image_name new_name
+```
 
-#### VOLUME MANAGEMENT   
+---
 
+## Volume Management
 
-docker volume ls                                       # List all volumes
-docker volume create volume_name                       # Create volume
-docker volume inspect volume_name                      # Inspect volume
-docker volume rm volume_name                           # Remove volume
-docker volume prune                                    # Remove unused volumes
+```bash
+docker volume ls
+docker volume create volume_name
+docker volume inspect volume_name
+docker volume rm volume_name
+docker volume prune
+```
 
+---
 
-#### NETWORK MANAGEMENT  
+## Network Management
 
+```bash
+docker network ls
+docker network create network_name
+docker network connect network_name container_name
+docker network disconnect network_name container_name
+docker network inspect network_name
+docker network rm network_name
+```
 
-docker network ls                                      # List all networks
-docker network create network_name                     # Create network
-docker network connect network_name container_name     # Connect container to network
-docker network disconnect network_name container_name  # Disconnect container
-docker network inspect network_name                    # Inspect network
-docker network rm network_name                         # Remove network
+---
 
+## Development & Debugging
 
-#### DEVELOPMENT & DEBUGGING
+```bash
+docker exec -it container_name bash
+docker exec -it --user user container_name bash
 
+docker cp file.txt container_name:/path/
+docker cp container_name:/path/file.txt ./
 
-docker exec -it container_name bash                    # Execute command in running container
-docker exec -it --user user container_name bash        # Execute as specific user
-docker cp file.txt container_name:/path/               # Copy file to container
-docker cp container_name:/path/file.txt ./             # Copy file from container
-docker commit container_name new_image                 # Create image from container changes
-docker rename old_name new_name                        # Rename container
+docker commit container_name new_image
+docker rename old_name new_name
+```
+
+---
+
+# Contributions
+
+Pull requests are welcome!  
+Feel free to contribute improvements to the Dockerfile, workspace system, or documentation.
+
+---
