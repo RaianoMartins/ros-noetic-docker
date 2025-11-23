@@ -63,27 +63,27 @@ Includes:
 
 # 3. Reattaching / Restarting
 
-### ➤ Detach without stopping  
+### Detach without stopping  
 ```
 Ctrl + P, Ctrl + Q
 ```
 
-### ➤ Reattach  
+### Reattach  
 ```bash
 docker attach ros-noetic-container
 ```
 
-### ➤ Stop
+### Stop
 ```bash
 docker stop ros-noetic-container
 ```
 
-### ➤ Start again
+### Start again
 ```bash
 docker start ros-noetic-container
 ```
 
-### ➤ Open a new shell
+### Open a new shell
 ```bash
 docker exec -it ros-noetic-container bash
 ```
