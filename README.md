@@ -1,26 +1,26 @@
 # ROS Noetic Docker Image
 
 <p>
-  <img src="badges/ROS-Noetic-green.svg" height="28">
-  <img src="badges/Ubuntu-20.04.svg" height="28">
-  <img src="badges/Docker-Ready.svg" height="28">
+  <img src="badges/ROS-Noetic-green.svg" height="34">
+  <img src="badges/Ubuntu-20.04.svg" height="34">
+  <img src="badges/Docker-Ready.svg" height="34">
 </p>
 
 ---
 
 # Table of Contents
-- [Overview](#-overview)
-- [1. Build the Image](#1-build-the-image)
-- [2. First Run](#2-first-run)
-- [3. Reattaching / Restarting](#3-reattaching--restarting)
-- [4. Saving Container Modifications](#4-saving-container-modifications)
-- [5. Useful Docker Commands](#5-useful-docker-commands)
+- [Overview](#overview)
+- [1. Build the Image](#1build-the-image)
+- [2. First Run](#2first-run)
+- [3. Reattaching / Restarting](#3reattaching--restarting)
+- [4. Saving Container Modifications](#4saving-container-modifications)
+- [5. Useful Docker Commands](#5useful-docker-commands)
   - [Container Management](#container-management)
   - [Image Management](#image-management)
   - [Volume Management](#volume-management)
   - [Network Management](#network-management)
   - [Development & Debugging](#development--debugging)
-- [Contributions](#-contributions)
+- [Contributions](#contributions)
 
 ---
 
