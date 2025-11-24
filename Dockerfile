@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-rosserial-arduino \
     ros-noetic-roboticsgroup-upatras-gazebo-plugins \
     ros-noetic-actionlib-tools \
+    ros-noetic-usb-cam \
     terminator \
     git \
     nano \
@@ -33,6 +34,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd -m -s /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME} \
     && usermod -aG dialout ${USERNAME} \
     && usermod -aG sudo ${USERNAME} \
+    && usermod -aG video ${USERNAME} \
     && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 

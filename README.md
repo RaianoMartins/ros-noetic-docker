@@ -49,7 +49,18 @@ docker build -t ros-noetic-image .
 # 2. First Run
 
 ```bash
-docker run -it --name ros-noetic-container --network=host   --ipc=host   -v ~/docker_volumes/ros-noetic/catkin_ws:/home/ros-noetic/catkin_ws   -v ~/docker_volumes/ros-noetic/config:/home/ros-noetic/.config/ros   -v /tmp/.X11-unix:/tmp/.X11-unix:rw   -v ~/.ssh:/home/ros-noetic/.ssh:ro   --env=DISPLAY   -v /dev:/dev   --device-cgroup-rule='c *:* rmw'   ros-noetic-image
+docker run -it \
+    --name ros-noetic-container \
+    --net=host \
+    --ipc=host \
+    --privileged \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+    -v ~/docker_volumes/ros-noetic/catkin_ws:/home/ros-noetic/catkin_ws \
+    -v ~/docker_volumes/ros-noetic/config:/home/ros-noetic/.config/ros \
+    -v ~/.ssh:/home/ros-noetic/.ssh:ro \
+    --device /dev/video0:/dev/video0 \
+    ros-noetic-image
 ```
 
 Includes:
