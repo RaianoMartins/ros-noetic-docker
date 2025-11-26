@@ -3,7 +3,7 @@ FROM osrf/ros:noetic-desktop-full
 ARG DEBIAN_FRONTEND=noninteractive
 ARG USERNAME=ros-noetic
 ARG USER_UID=1000
-ARG USER_GID=${USER_UID}
+ARG USER_GID=1000
 
 # ======================================
 # Install system packages

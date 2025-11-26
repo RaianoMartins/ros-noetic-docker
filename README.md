@@ -36,12 +36,24 @@ This repository provides a **ready-to-use Docker image for ROS Noetic**, includi
 
 ---
 
+
+# 0. Set volume folder permissions on host
+
+You should run this command on you host to give container's user proper permissions   
+
+```bash
+sudo chown -R $USER:$USER ~/docker_volumes/ros-noetic
+```
+
 # 1. Build the Image
 
 Inside the `image/` folder, run:
 
 ```bash
-docker build -t ros-noetic-image .
+docker build \
+  --build-arg USER_UID=$(id -u) \
+  --build-arg USER_GID=$(id -g) \
+  -t ros-noetic-image .
 ```
 
 ---
