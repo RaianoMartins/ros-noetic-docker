@@ -63,8 +63,11 @@ docker run -it \
     --net=host \
     --ipc=host \
     --privileged \
+    --add-host m300:172.16.1.121 \
     -e DISPLAY=$DISPLAY \
+    -e QT_X11_NO_MITSHM=1 \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+    -v /dev/dri:/dev/dri \
     -v ~/docker_volumes/ros-noetic/catkin_ws:/home/ros-noetic/catkin_ws \
     -v ~/docker_volumes/ros-noetic/config:/home/ros-noetic/.config/ros \
     -v ~/.ssh:/home/ros-noetic/.ssh:ro \
