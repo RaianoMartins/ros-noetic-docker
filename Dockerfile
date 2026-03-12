@@ -25,8 +25,12 @@ RUN apt-get update && apt-get install -y \
     python3-rosdep \
     python3-catkin-tools \
     sudo \
+    iproute2 \
+    iputils-ping \
+    net-tools \
+    dnsutils \
     && rm -rf /var/lib/apt/lists/*
-
+    
 # ======================================
 # Create non-root user
 # ======================================

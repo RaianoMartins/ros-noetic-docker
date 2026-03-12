@@ -50,10 +50,7 @@ sudo chown -R $USER:$USER ~/docker_volumes/ros-noetic
 Inside the `image/` folder, run:
 
 ```bash
-docker build \
-  --build-arg USER_UID=$(id -u) \
-  --build-arg USER_GID=$(id -g) \
-  -t ros-noetic-image .
+docker build -t ros-noetic-image .
 ```
 
 ---
