@@ -10,6 +10,7 @@ ARG USER_GID=1000
 # ======================================
 RUN apt-get update && apt-get install -y \
     ros-noetic-nmea-msgs \
+    ros-noetic-nmea-comms \
     ros-noetic-ros-controllers \
     ros-noetic-gazebo-ros-control \
     ros-noetic-rosserial \
@@ -17,7 +18,6 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-roboticsgroup-upatras-gazebo-plugins \
     ros-noetic-actionlib-tools \
     ros-noetic-usb-cam \
-    terminator \
     git \
     nano \
     minicom \
@@ -29,6 +29,11 @@ RUN apt-get update && apt-get install -y \
     iputils-ping \
     net-tools \
     dnsutils \
+    ffmpeg \
+    libusb-1.0-0-dev \
+    libsdl2-dev \
+    build-essential \
+    cmake \
     && rm -rf /var/lib/apt/lists/*
 
 # ======================================
@@ -53,6 +58,22 @@ RUN ssh-keyscan gitlab.com github.com >> /home/${USERNAME}/.ssh/known_hosts 2>/d
     chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh/known_hosts
 
 # ======================================
+# Install DJI Onboard SDK 4.1.0
+# ======================================
+WORKDIR /opt
+RUN git clone -b 4.1.0 https://github.com/dji-sdk/Onboard-SDK.git
+
+WORKDIR /opt/Onboard-SDK/build
+RUN cmake .. && make -j$(nproc) && make install
+
+ENV OSDK_PATH=/opt/Onboard-SDK
+#ENV LD_LIBRARY_PATH=/opt/Onboard-SDK/build:${LD_LIBRARY_PATH}
+#ENV CMAKE_PREFIX_PATH=/opt/Onboard-SDK:${CMAKE_PREFIX_PATH}
+
+ENV LD_LIBRARY_PATH=/opt/Onboard-SDK/build
+ENV CMAKE_PREFIX_PATH=/opt/Onboard-SDK
+
+# ======================================
 # Switch to non-root user
 # ======================================
 USER ${USERNAME}
@@ -63,11 +84,17 @@ WORKDIR /home/${USERNAME}
 # ======================================
 RUN mkdir -p /home/${USERNAME}/catkin_ws/src
 
+# ======================================
+# Clone OSDK ROS 4.1.0 
+# ======================================
+RUN git clone -b 4.1.0 https://github.com/dji-sdk/Onboard-SDK-ROS.git \
+    /home/${USERNAME}/catkin_ws/src/Onboard-SDK-ROS
+
 # Build initial empty workspace
 RUN bash -c "source /opt/ros/noetic/setup.bash && \
     cd /home/${USERNAME}/catkin_ws && \
-    catkin_make"
-
+    catkin_make -j$(nproc)"
+    
 # ======================================
 # Copy configuration files
 # ======================================
@@ -77,6 +104,11 @@ COPY --chown=${USERNAME}:${USERNAME} ssh-check.sh /home/${USERNAME}/ssh-check.sh
 
 RUN chmod +x /entrypoint.sh /home/${USERNAME}/ssh-check.sh
 
+RUN echo "source /opt/ros/noetic/setup.bash" >> /home/${USERNAME}/.bashrc && \
+    echo "source ~/catkin_ws/devel/setup.bash" >> /home/${USERNAME}/.bashrc && \
+    echo "export OSDK_PATH=/opt/Onboard-SDK" >> /home/${USERNAME}/.bashrc && \
+    echo "export LD_LIBRARY_PATH=/opt/Onboard-SDK/build:\$LD_LIBRARY_PATH" >> /home/${USERNAME}/.bashrc
+    
 # ======================================
 # Entrypoint
 # ======================================

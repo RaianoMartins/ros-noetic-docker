@@ -69,6 +69,7 @@ docker run -it \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     -v /dev/dri:/dev/dri \
     -v ~/docker_volumes/ros-noetic/catkin_ws:/home/ros-noetic/catkin_ws \
+    -v ~/docker_volumes/ros-noetic/bags:/home/ros-noetic/bags \
     -v ~/docker_volumes/ros-noetic/config:/home/ros-noetic/.config/ros \
     -v ~/.ssh:/home/ros-noetic/.ssh:ro \
     --device /dev/video0:/dev/video0 \
